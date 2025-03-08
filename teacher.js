@@ -69,9 +69,9 @@ router.get("/enrolledStudents/:course_id", async (req, res) => {
       },
     });
     const enrolledStudents = [];
-    students.data.forEach((student) => {
-      if (student.cours.includes(course_id)) {
-        enrolledStudents.push(student);
+    students.data.student.forEach((s) => {
+      if (s.cours.includes(course_id)) {
+        enrolledStudents.push(s);
       }
     });
     res.json(enrolledStudents);
@@ -79,5 +79,34 @@ router.get("/enrolledStudents/:course_id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
+// router.get("/enrolledStudents/:course_id", async (req, res) => {
+//   const { course_id } = req.params;
+//   const token = req.headers["authorization"];
+
+//   try {
+//     const students = await axios.get("http://localhost:3007/student/all", {
+//       headers: {
+//         Authorization: token,
+//       },
+//     });
+
+//     console.log("Response from student service:", students.data);
+
+//     if (!Array.isArray(students.data)) {
+//       return res
+//         .status(500)
+//         .json({ message: "Invalid data format from student service" });
+//     }
+
+//     const enrolledStudents = students.data.filter((student) =>
+//       student.cours.includes(course_id)
+//     );
+
+//     res.json(enrolledStudents);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 
 module.exports = router;
